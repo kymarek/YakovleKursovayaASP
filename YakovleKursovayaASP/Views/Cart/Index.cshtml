@@ -1,0 +1,6 @@
+﻿@model Cart;
+
+@foreach (var item in Model.Items)
+{
+    <div>@item.Product.Name</div>
+}
