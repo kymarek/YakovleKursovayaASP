@@ -10,12 +10,12 @@
                         <a href="@Url.Action("Details", "Home", new { id = item.Id, productType = item.ProductType })"><img src="~/img/Books/@item.Photo" alt="img"></a>
                     </div>
                     <div class="shop-content">
-                        <h3><a href="details.html">@item.Name</a></h3>
+                        <h3><a href="@Url.Action("Details", "Home", new { id = item.Id, productType = item.ProductType })">@item.Name</a></h3>
                         <ul class="price-list">
                             <li>Цена: @item.Price Р</li>
                         </ul>
                         <div class="shop-button">
-                            <a href="shop-details.html" class="theme-btn">
+                            <a href="#" onclick="AddToCart('@item.Id')" class="theme-btn">
                                 <i class="fa-solid fa-basket-shopping"></i> Добавить в корзину
                             </a>
                         </div>
