@@ -1,4 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using YakovleKursovayaASP.Models;
+using YakovleKursovayaASP.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<KursachAspContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ArtisticBookService>();
+builder.Services.AddScoped<StudingBookService>();
+builder.Services.AddScoped<BoardGameService>();
+builder.Services.AddScoped<ProductService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

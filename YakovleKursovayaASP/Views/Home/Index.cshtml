@@ -1,22 +1,22 @@
-﻿@model List<Base>;
+﻿@model List<Product>;
 
 <div class="container">
     <div class="row">
-        @foreach (Base item in Model)
+        @foreach (Product item in Model)
         {
             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".4s">
                 <div class="shop-box-items">
                     <div class="book-thumb center">
-                        <a href="shop-details"><img src="~/img/book/02.png" alt="img"></a>
+                        <a href="@Url.Action("Details", "Home", new { id = item.Id, productType = item.ProductType })"><img src="~/img/Books/@item.Photo" alt="img"></a>
                     </div>
                     <div class="shop-content">
-                        <h3><a href="shop-details.html">@item.Name</a></h3>
+                        <h3><a href="details.html">@item.Name</a></h3>
                         <ul class="price-list">
                             <li>Цена: @item.Price Р</li>
                         </ul>
                         <div class="shop-button">
                             <a href="shop-details.html" class="theme-btn">
-                                <i class="fa-solid fa-basket-shopping"></i> Add To Cart
+                                <i class="fa-solid fa-basket-shopping"></i> Добавить в корзину
                             </a>
                         </div>
                     </div>

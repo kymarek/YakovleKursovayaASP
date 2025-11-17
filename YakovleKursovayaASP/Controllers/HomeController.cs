@@ -1,62 +1,51 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using YakovleKursovayaASP.Models;
+using YakovleKursovayaASP.Services;
 
 namespace YakovleKursovayaASP.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ProductService _productService;
+        private readonly ArtisticBookService _artisticBookService;
+        private readonly BoardGameService _boardGameService;
+        private readonly StudingBookService _studingBookService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ProductService productService, ArtisticBookService artisticBookService, BoardGameService boardGameService, StudingBookService studingBookService)
         {
             _logger = logger;
+            _productService = productService;
+            _artisticBookService = artisticBookService;
+            _boardGameService = boardGameService;
+            _studingBookService = studingBookService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Base> list = new List<Base>()
-            {
-                new ArtisticBook()
-                {
-                    Id = 1,
-                    Weight = 1,
-                    Size = "1",
-                    Brand = "1",
-                    Photo = "1",
-                    Name = "1",
-                    Price = 10,
-                    ProductType = ProductType.ArtisticBook
-                },
-                new ArtisticBook()
-                {
-                    Id = 2,
-                    Weight = 2,
-                    Size = "2",
-                    Brand = "2",
-                    Photo = "2",
-                    Price = 20,
-                    Name = "2",
-                    ProductType = ProductType.BoardGame
-                },
-                new ArtisticBook()
-                {
-                    Id = 3,
-                    Weight = 3,
-                    Size = "3",
-                    Brand = "3",
-                    Photo = "3",
-                    Name = "3",
-                    Price = 30,
-                    ProductType = ProductType.StudingBook
-                },
-            };
+            var list = await _productService.GetAllAsync();
             return View(list);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Details(int id, ProductType productType)
         {
-            return View();
+            object value;
+            switch (productType)
+            {
+                case ProductType.ArtisticBook:
+                    value = await _artisticBookService.GetViewAsync(id);
+                    break;
+                case ProductType.BoardGame:
+                    value = await _boardGameService.GetViewAsync(id);
+                    break;
+                case ProductType.StudingBook:
+                    value = await _studingBookService.GetViewAsync(id);
+                    break;
+                default:
+                    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+            return View(value);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

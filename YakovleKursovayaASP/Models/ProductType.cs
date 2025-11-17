@@ -2,8 +2,8 @@
 {
     public enum ProductType
     {
-        ArtisticBook,
-        StudingBook,
-        BoardGame
+        ArtisticBook = 1,
+        StudingBook = 2,
+        BoardGame = 3
     }
 }

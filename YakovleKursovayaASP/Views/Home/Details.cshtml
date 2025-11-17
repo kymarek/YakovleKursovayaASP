@@ -1,0 +1,86 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+@model object
+
+@{
+    string photo = string.Empty;
+    decimal? price = 0;
+    PropertyInfo[] props = [];
+    if (Model is ArtisticBookView artisticBookView)
+    {
+       var allProps = typeof(ArtisticBookView).GetProperties();
+        photo = allProps.FirstOrDefault(p => p.Name == "Photo").GetValue(artisticBookView) as string;
+        price = allProps.FirstOrDefault(p => p.Name == "Price").GetValue(artisticBookView) as decimal?;
+        props = allProps.Where(p => p.Name != "Photo" && p.Name != "Price" && p.Name != "Id").ToArray();
+    }
+
+    if (Model is BordGameView bordGameView)
+    {
+        var allProps = typeof(BordGameView).GetProperties();
+        photo = allProps.FirstOrDefault(p => p.Name == "Photo").GetValue(bordGameView) as string;
+        price = allProps.FirstOrDefault(p => p.Name == "Price").GetValue(bordGameView) as decimal?;
+        props = allProps.Where(p => p.Name != "Photo" && p.Name != "Price" && p.Name != "Id").ToArray();
+    }
+     
+    if (Model is StudingBookView studingBookView)
+    {
+        var allProps = typeof(StudingBookView).GetProperties();
+        photo = allProps.FirstOrDefault(p => p.Name == "Photo").GetValue(studingBookView) as string;
+        price = allProps.FirstOrDefault(p => p.Name == "Price").GetValue(studingBookView) as decimal?;
+        props = allProps.Where(p => p.Name != "Photo" && p.Name != "Price" && p.Name != "Id").ToArray();
+    }
+} 
+
+<div class="shop-details-wrapper">
+                <div class="row g-4">
+                    <div class="col-lg-5">
+                        <div class="shop-details-image">
+                            <div class="tab-content">
+                                <div id="thumb1" class="tab-pane fade show active">
+                                    <div class="shop-details-thumb">
+                            <img src="~/img/Books/@photo" alt="img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="shop-details-content">
+                            <div class="title-wrapper">
+                                <h2>Castle The Sky</h2>
+                            </div>
+                            <div class="price-list">
+                                <h3>@price Р</h3>
+                            </div>
+                            <div class="cart-wrapper">
+                                <div class="quantity-basket">
+                                    <p class="qty">
+                                        <button class="qtyminus" aria-hidden="true">−</button>
+                                        <input type="number" name="qty" id="qty2" min="1" max="10" step="1" value="1">
+                                        <button class="qtyplus" aria-hidden="true">+</button>
+                                    </p>
+                                </div> 
+                                <a href="shop-details.html" class="theme-btn"><i
+                                        class="fa-solid fa-basket-shopping"></i> Добавить в корзину</a>
+                            </div>
+                            <div class="category-box">
+                                <div class="category-list">
+                                    <ul>
+                            @foreach (var prop in props)
+                            {
+                                <li>
+                                    @{
+                                        var displayAttr = prop.GetCustomAttributes(typeof(DisplayAttribute), false)
+                                            .FirstOrDefault() as DisplayAttribute;
+                                        string displayName = displayAttr?.Name ?? prop.Name;
+                                    }
+                                    <span>@displayName:</span> @prop.GetValue(Model);
+                                </li>
+                            }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
