@@ -7893,6 +7893,10 @@ span {
             padding: 65px 40px;
         }
 
+.shop-details-thumb img {
+    width: 100%;
+}
+
 @media (max-width: 767px) {
     .shop-details-wrapper .shop-details-image .shop-details-thumb {
         padding: 40px 25px;

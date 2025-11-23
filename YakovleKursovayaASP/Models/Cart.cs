@@ -8,16 +8,7 @@
 
         public Cart()
         {
-            Items = new List<CartItem>()
-                {
-                new CartItem()
-                {
-                    Product = new Base()
-                    {
-                        Name = "Hello"
-                    }
-                }
-            };
+           
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace YakovleKursovayaASP.Models
 {
-    public enum ProductType
+    public class ProductType
     {
-        ArtisticBook = 1,
-        StudingBook = 2,
-        BoardGame = 3
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

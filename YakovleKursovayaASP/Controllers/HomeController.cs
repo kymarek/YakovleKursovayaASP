@@ -9,17 +9,11 @@ namespace YakovleKursovayaASP.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ProductService _productService;
-        private readonly ArtisticBookService _artisticBookService;
-        private readonly BoardGameService _boardGameService;
-        private readonly StudingBookService _studingBookService;
 
-        public HomeController(ILogger<HomeController> logger, ProductService productService, ArtisticBookService artisticBookService, BoardGameService boardGameService, StudingBookService studingBookService)
+        public HomeController(ILogger<HomeController> logger, ProductService productService)
         {
             _logger = logger;
             _productService = productService;
-            _artisticBookService = artisticBookService;
-            _boardGameService = boardGameService;
-            _studingBookService = studingBookService;
         }
 
         public async Task<IActionResult> Index()
@@ -28,24 +22,10 @@ namespace YakovleKursovayaASP.Controllers
             return View(list);
         }
 
-        public async Task<IActionResult> Details(int id, ProductType productType)
+        public async Task<IActionResult> Details(int id)
         {
-            object value;
-            switch (productType)
-            {
-                case ProductType.ArtisticBook:
-                    value = await _artisticBookService.GetViewAsync(id);
-                    break;
-                case ProductType.BoardGame:
-                    value = await _boardGameService.GetViewAsync(id);
-                    break;
-                case ProductType.StudingBook:
-                    value = await _studingBookService.GetViewAsync(id);
-                    break;
-                default:
-                    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            }
-            return View(value);
+            var result = await _productService.GetAsync(id);
+            return View(result);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

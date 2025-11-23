@@ -1,34 +1,9 @@
 ﻿@using System.ComponentModel.DataAnnotations
 @using System.Reflection
-@model object
+@model Product
 
 @{
-    string photo = string.Empty;
-    decimal? price = 0;
-    PropertyInfo[] props = [];
-    if (Model is ArtisticBookView artisticBookView)
-    {
-       var allProps = typeof(ArtisticBookView).GetProperties();
-        photo = allProps.FirstOrDefault(p => p.Name == "Photo").GetValue(artisticBookView) as string;
-        price = allProps.FirstOrDefault(p => p.Name == "Price").GetValue(artisticBookView) as decimal?;
-        props = allProps.Where(p => p.Name != "Photo" && p.Name != "Price" && p.Name != "Id").ToArray();
-    }
-
-    if (Model is BordGameView bordGameView)
-    {
-        var allProps = typeof(BordGameView).GetProperties();
-        photo = allProps.FirstOrDefault(p => p.Name == "Photo").GetValue(bordGameView) as string;
-        price = allProps.FirstOrDefault(p => p.Name == "Price").GetValue(bordGameView) as decimal?;
-        props = allProps.Where(p => p.Name != "Photo" && p.Name != "Price" && p.Name != "Id").ToArray();
-    }
-     
-    if (Model is StudingBookView studingBookView)
-    {
-        var allProps = typeof(StudingBookView).GetProperties();
-        photo = allProps.FirstOrDefault(p => p.Name == "Photo").GetValue(studingBookView) as string;
-        price = allProps.FirstOrDefault(p => p.Name == "Price").GetValue(studingBookView) as decimal?;
-        props = allProps.Where(p => p.Name != "Photo" && p.Name != "Price" && p.Name != "Id").ToArray();
-    }
+    PropertyInfo[] props = typeof(Product).GetProperties();
 } 
 
 <div class="shop-details-wrapper">
@@ -38,7 +13,7 @@
                             <div class="tab-content">
                                 <div id="thumb1" class="tab-pane fade show active">
                                     <div class="shop-details-thumb">
-                            <img src="~/img/Books/@photo" alt="img">
+                            <img src="~/img/Books/@Model.Photo" alt="img">
                                     </div>
                                 </div>
                             </div>
@@ -47,10 +22,10 @@
                     <div class="col-lg-7">
                         <div class="shop-details-content">
                             <div class="title-wrapper">
-                                <h2>Castle The Sky</h2>
+                    <h2>@Model.Name</h2>
                             </div>
                             <div class="price-list">
-                                <h3>@price Р</h3>
+                                <h3>@Model.Price Р</h3>
                             </div>
                             <div class="cart-wrapper">
                                 <div class="quantity-basket">
@@ -68,13 +43,22 @@
                                     <ul>
                             @foreach (var prop in props)
                             {
+                                @if (prop.Name == "Id")
+                                    continue;
                                 <li>
                                     @{
                                         var displayAttr = prop.GetCustomAttributes(typeof(DisplayAttribute), false)
                                             .FirstOrDefault() as DisplayAttribute;
                                         string displayName = displayAttr?.Name ?? prop.Name;
+                                        var value = prop.GetValue(Model);
                                     }
-                                    <span>@displayName:</span> @prop.GetValue(Model);
+
+                                    @if (value != null)
+                                    {
+
+                                        <span>@displayName:</span> <span>@value</span>
+                                    }
+                                    
                                 </li>
                             }
                                     </ul>

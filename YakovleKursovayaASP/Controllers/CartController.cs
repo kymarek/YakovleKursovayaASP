@@ -16,8 +16,7 @@ namespace YakovleKursovayaASP.Controllers
         }
         public IActionResult Index()
         {
-            //var model = HttpContext.Session.Get<Cart>("Cart");
-            var model = new Cart(); ;
+            var model = HttpContext.Session.Get<Cart>("Cart");
             return View(model);
         }
 
