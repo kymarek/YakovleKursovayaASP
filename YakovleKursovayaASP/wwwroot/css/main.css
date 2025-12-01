@@ -49,6 +49,10 @@ Version: 1.0.0
     --box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.06);
 }
 
+.photoIcon{
+    width: 100px;
+}
+
 .theme-btn {
     position: relative;
     z-index: 2;

@@ -513,6 +513,5 @@ Description: Bookle - Book Store WooCommerce Html Template
 
     loader();
 
-
 })(jQuery); // End jQuery
 

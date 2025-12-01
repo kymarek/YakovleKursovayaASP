@@ -8,121 +8,49 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Subtotal</th>
+                            <th>Товар</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Сумма</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <span class="d-flex gap-5 align-items-center">
-                                    <a href="shop-cart.html" class="remove-icon">
-                                        <img src="assets/img/icon/icon-9.svg" alt="img">
-                                    </a>
-                                    <span class="cart">
-                                        <img src="assets/img/shop-cart/01.png" alt="img">
+                        @foreach (CartItem item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex gap-5 align-items-center">
+                                        <div class="remove-icon" onclick="removeFromCart(@item.Product.Id)">
+                                            <img src="~/img/icon/icon-9.svg" alt="img">
+                                        </div>
+                                        <span class="cart">
+                                            <img src="~/img/Books/@item.Product.Photo" alt="img" class="photoIcon">
+                                        </span>
+                                        <span class="cart-title">
+                                            @item.Product.Name
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="cart-price">@item.Product.Price Р</span>
+                                </td>
+                                <td>
+                                    <span class="quantity-basket">
+                                        <span class="qty">
+                                            <button class="qtyminus" aria-hidden="true" onclick="reduceItem(@item.Product.Id)">−</button>
+                                            <input type="number" name="qty" id="qty2-@item.Product.Id" onchange="ChangeValue(@item.Product.Id)" min="1" max="10" step="1"
+                                            value="@item.Count">
+                                            <button class="qtyplus" aria-hidden="true" onclick="AddToCart(@item.Product.Id)">+</button>
+                                        </span>
                                     </span>
-                                    <span class="cart-title">
-                                        simple Things You To Save Book
-                                    </span>
-                                </span>
-                            </td>
-                            <td>
-                                <span class="cart-price">$30.00</span>
-                            </td>
-                            <td>
-                                <span class="quantity-basket">
-                                    <span class="qty">
-                                        <button class="qtyminus" aria-hidden="true">−</button>
-                                        <input type="number" name="qty" id="qty2" min="1" max="10" step="1"
-                                               value="1">
-                                        <button class="qtyplus" aria-hidden="true">+</button>
-                                    </span>
-                                </span>
-                            </td>
-                            <td>
-                                <span class="subtotal-price">$120.00</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="d-flex gap-5 align-items-center">
-                                    <a href="shop-cart.html" class="remove-icon">
-                                        <img src="assets/img/icon/icon-9.svg" alt="img">
-                                    </a>
-                                    <span class="cart">
-                                        <img src="assets/img/shop-cart/02.png" alt="img">
-                                    </span>
-                                    <span class="cart-title">
-                                        Qple GPad With Retina Sisplay
-                                    </span>
-                                </span>
-                            </td>
-                            <td>
-                                <span class="cart-price">$30.00</span>
-                            </td>
-                            <td>
-                                <span class="quantity-basket">
-                                    <span class="qty">
-                                        <button class="qtyminus" aria-hidden="true">−</button>
-                                        <input type="number" name="qty" id="qty3" min="1" max="10" step="1"
-                                               value="1">
-                                        <button class="qtyplus" aria-hidden="true">+</button>
-                                    </span>
-                                </span>
-                            </td>
-                            <td>
-                                <span class="subtotal-price">$120.00</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="d-flex gap-5 align-items-center">
-                                    <a href="shop-cart.html" class="remove-icon">
-                                        <img src="assets/img/icon/icon-9.svg" alt="img">
-                                    </a>
-                                    <span class="cart">
-                                        <img src="assets/img/shop-cart/03.png" alt="img">
-                                    </span>
-                                    <span class="cart-title">
-                                        Flovely and Unicom Erna
-                                    </span>
-                                </span>
-                            </td>
-                            <td>
-                                <span class="cart-price">$30.00</span>
-                            </td>
-                            <td>
-                                <span class="quantity-basket">
-                                    <span class="qty">
-                                        <button class="qtyminus" aria-hidden="true">−</button>
-                                        <input type="number" name="qty" id="qty" min="1" max="10" step="1"
-                                               value="1">
-                                        <button class="qtyplus" aria-hidden="true">+</button>
-                                    </span>
-                                </span>
-                            </td>
-                            <td>
-                                <span class="subtotal-price">$120.00</span>
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    <span class="subtotal-price">@item.Summ Р</span>
+                                </td>
+                            </tr>
+                        }                       
                     </tbody>
                 </table>
-            </div>
-            <div class="cart-wrapper-footer">
-                <form action="shop-cart.html">
-                    <div class="input-area">
-                        <input type="text" name="Coupon Code" id="CouponCode" placeholder="Coupon Code">
-                        <button type="submit" class="theme-btn">
-                            Apply
-                        </button>
-                    </div>
-                </form>
-                <a href="shop-cart.html" class="theme-btn">
-                    Update Cart
-                </a>
             </div>
         </div>
         <div class="col-xl-3">
@@ -130,39 +58,29 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Cart Total</th>
+                            <th>Итог корзины</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
                                 <span class="d-flex gap-5 align-items-center justify-content-between">
-                                    <span class="sub-title">Subtotal:</span>
-                                    <span class="sub-price">$84.00</span>
+                                    <span class="sub-title">Сумма:</span>
+                                    <span class="sub-price">@Model.Summ Р</span>
                                 </span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <span class="d-flex gap-5 align-items-center  justify-content-between">
-                                    <span class="sub-title">Shipping:</span>
-                                    <span class="sub-text">
-                                        Free
-                                    </span>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="d-flex gap-5 align-items-center  justify-content-between">
-                                    <span class="sub-title">Total:  </span>
-                                    <span class="sub-price sub-price-total">$84.00</span>
+                                    <span class="sub-title">Позиций:</span>
+                                    <span class="sub-price sub-price-total">@Model.Count</span>
                                 </span>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <a href="checkout.html" class="theme-btn">Proceed to checkout</a>
+                <button class="theme-btn" onlick="startOrder()">Оформить</button>
             </div>
         </div>
     </div>

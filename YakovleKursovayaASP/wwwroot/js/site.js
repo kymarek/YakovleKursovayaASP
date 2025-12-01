@@ -12,7 +12,38 @@ function AddToCart(id) {
         method: "POST",
         data: {id: id},
         success: function (result) {
+            $('.pb-3').html(result);
             console.log(result);
+            GetCartLength();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+}
+
+function AddToCartInShop(id) {
+    $.ajax({
+        url: 'Cart/AddToCart',
+        method: "POST",
+        data: { id: id },
+        success: function (result) {
+            console.log(result);
+            GetCartLength();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+}
+
+function reduceItem(id) {
+    $.ajax({
+        url: 'Cart/ReduceItem',
+        method: "POST",
+        data: { id: id },
+        success: function (result) {
+            $('.pb-3').html(result);
             GetCartLength();
         },
         error: function (xhr, status, error) {
@@ -32,5 +63,29 @@ function GetCartLength() {
         error: function (xhr, status, error) {
             console.error("Error:", error);
         }
+    });
+}
+function removeFromCart(id) {
+    $.ajax({
+        url: 'Cart/RemoveItem',
+        method: "Post",
+        data: {id: id},
+        success: function (result) {
+            $('.pb-3').html(result);
+            GetCartLength();
+        },
+    });
+}
+
+function ChangeValue(id) {
+    var value = $(`#qty2-${id}`).val();
+    $.ajax({
+        url: 'Cart/ChangeValue',
+        method: "Post",
+        data: { id: id, value: value },
+        success: function (result) {
+            $('.pb-3').html(result);
+            GetCartLength();
+        },
     });
 }

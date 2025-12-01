@@ -16,8 +16,10 @@ namespace YakovleKursovayaASP.Controllers
         }
         public IActionResult Index()
         {
-            var model = HttpContext.Session.Get<Cart>("Cart");
-            return View(model);
+            var cart = new Cart();
+            if (HttpContext.Session.Keys.Contains("cart"))
+                cart = HttpContext.Session.Get<Cart>("cart");
+            return View(cart);
         }
 
         public async Task<IActionResult> AddToCart(int id)
@@ -26,23 +28,128 @@ namespace YakovleKursovayaASP.Controllers
             if (product == null)
                 return BadRequest("Не удалось найти выбранный товар");
 
-            var cart = new List<Product>();
+            var cart = new Cart();
             if (HttpContext.Session.Keys.Contains("cart"))
-                cart = HttpContext.Session.Get<List<Product>>("cart");
+                cart = HttpContext.Session.Get<Cart>("cart");
 
-            cart?.Add(product);
-            HttpContext.Session.Set<List<Product>>("cart", cart);
+            CartItem item = cart?.Items.FirstOrDefault<CartItem>(i => i.Product.Id == product.Id);
+            if (item != null)
+            {
+                item.Count++;
+                item.Summ = item.Product.Price * item.Count;
+            }
+            else
+            {
+                cart?.Items.Add(new CartItem
+                {
+                    Product = product,
+                    Count = 1,
+                    Summ = product.Price
+                });
+            }
 
-            return Ok("Выполнено успешно");
+            cart.Count = 0;
+            cart.Summ = 0;
+            foreach(CartItem cartItems in cart.Items)
+            {
+                cart.Count += cartItems.Count;
+                cart.Summ += cartItems.Summ;
+            }
+
+            HttpContext.Session.Set<Cart>("cart", cart);
+
+            return PartialView("Index", cart);
+        }
+
+        public async Task<IActionResult> RemoveItem(int id)
+        {
+            var product = await _productService.GetAsync(id);
+            if (product == null)
+                return BadRequest("Не удалось найти выбранный товар");
+
+            var cart = new Cart();
+            if (HttpContext.Session.Keys.Contains("cart"))
+                cart = HttpContext.Session.Get<Cart>("cart");
+
+            cart.Items.Remove(cart.Items.FirstOrDefault(i => i.Product.Id == id));
+            cart.Count = 0;
+            cart.Summ = 0;
+            foreach (CartItem cartItem in cart.Items)
+            {
+                cart.Count += cartItem.Count;
+                cart.Summ += cartItem.Summ;
+            }
+
+            HttpContext.Session.Set<Cart>("cart", cart);
+
+            return PartialView("Index", cart);
         }
 
         public async Task<IActionResult> GetCartLength()
         {
-            int result = 0;
+            int? result = 0;
             if (HttpContext.Session.Keys.Contains("cart"))
-                result = HttpContext.Session.Get<List<Product>>("cart").Count;
-
+                result = HttpContext.Session.Get<Cart>("cart")?.Count;
+            
             return Ok(result);
+        }
+
+        public async Task<IActionResult> ReduceItem(int id)
+        {
+            Cart cart = new Cart();
+            if (HttpContext.Session.Keys.Contains("cart"))
+                cart = HttpContext.Session.Get<Cart>("cart");
+
+            CartItem item = cart?.Items.FirstOrDefault<CartItem>(i => i.Product.Id == id);
+            if (item != null)
+            {
+                item.Count--;
+                item.Summ = item.Product.Price * item.Count;
+            }
+
+            cart.Items.RemoveAll(i => i.Count == 0);
+            cart.Count = 0;
+            cart.Summ = 0;
+            foreach (CartItem cartItem in cart.Items)
+            {
+                cart.Count += cartItem.Count;
+                cart.Summ += cartItem.Summ;
+                if (cartItem.Count == 0)
+                    cart.Items.Remove(cartItem);
+            }
+
+            HttpContext.Session.Set<Cart>("cart", cart);
+
+            return PartialView("Index", cart);
+        }
+
+        public async Task<IActionResult> ChangeValue(int id, int value)
+        {
+            Cart cart = new Cart();
+            if (HttpContext.Session.Keys.Contains("cart"))
+                cart = HttpContext.Session.Get<Cart>("cart");
+
+            CartItem item = cart?.Items.FirstOrDefault<CartItem>(i => i.Product.Id == id);
+            if (item != null)
+            {
+                item.Count = value;
+                item.Summ = item.Product.Price * item.Count;
+            }
+
+            cart.Items.RemoveAll(i => i.Count == 0);
+            cart.Count = 0;
+            cart.Summ = 0;
+            foreach (CartItem cartItem in cart.Items)
+            {
+                cart.Count += cartItem.Count;
+                cart.Summ += cartItem.Summ;
+                if (cartItem.Count == 0)
+                    cart.Items.Remove(cartItem);
+            }
+
+            HttpContext.Session.Set<Cart>("cart", cart);
+
+            return PartialView("Index", cart);
         }
     }
 }
