@@ -20,5 +20,16 @@ namespace YakovleKursovayaASP.Services
         {
             return await _context.Products.ToListAsync();
         }
+
+        public async Task<List<Product>> GetByFiltersAsync(Filters filters)
+        {
+            return await _context.Products
+                .FromSqlInterpolated($@"
+        SELECT *
+        FROM Products
+        WHERE (IFNULL({filters.Brand}, '') = '' OR Brand LIKE '%' || {filters.Brand} || '%')
+        AND (IFNULL({filters.Thematics}, '') = '' OR Thematics LIKE '%' || {filters.Thematics} || '%')
+        AND (IFNULL({filters.Genre}, '') = '' OR Genre LIKE '%' || {filters.Genre} || '%')").ToListAsync();
+        }
     }
 }

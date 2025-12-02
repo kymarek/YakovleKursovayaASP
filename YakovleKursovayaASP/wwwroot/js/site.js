@@ -3,14 +3,14 @@
 
 // Write your JavaScript code.
 
-$('document').ready(function ()  {
+$('document').ready(function () {
     GetCartLength();
 })
 function AddToCart(id) {
     $.ajax({
-        url:'Cart/AddToCart',
+        url: 'Cart/AddToCart',
         method: "POST",
-        data: {id: id},
+        data: { id: id },
         success: function (result) {
             $('.pb-3').html(result);
             console.log(result);
@@ -28,7 +28,6 @@ function AddToCartInShop(id) {
         method: "POST",
         data: { id: id },
         success: function (result) {
-            console.log(result);
             GetCartLength();
         },
         error: function (xhr, status, error) {
@@ -57,7 +56,6 @@ function GetCartLength() {
         url: 'Cart/GetCartLength',
         method: "Get",
         success: function (result) {
-            console.log(result);
             $(".cart-icon > span").text(`${result}`);
         },
         error: function (xhr, status, error) {
@@ -69,7 +67,7 @@ function removeFromCart(id) {
     $.ajax({
         url: 'Cart/RemoveItem',
         method: "Post",
-        data: {id: id},
+        data: { id: id },
         success: function (result) {
             $('.pb-3').html(result);
             GetCartLength();
@@ -88,4 +86,65 @@ function ChangeValue(id) {
             GetCartLength();
         },
     });
+}
+function startOrder() {
+    $('.remove-icon').hide();
+    $('.qtyminus').hide();
+    $('.qtyplus').hide();
+    $('.qty').attr('disabled', 'disabled');
+    $.ajax({
+        url: 'Cart/OrderForm',
+        method: "Get",
+        success: function (result) {
+            $('#orderForm').html(result);
+        },
+    });
+}
+
+function cancelOrder() {
+    $('.remove-icon').show();
+    $('.qtyminus').show();
+    $('.qtyplus').show();
+    $('.qty').attr('disabled', 'false');
+    $('#orderForm').html('');
+}
+
+function GetByFilters() {
+    var values = getFormValuesFromDiv($('.Filters')[0]);
+    console.log(values);
+    $.ajax({
+        url: 'Home/GetByFilters',
+        method: "Get",
+        data: values,
+        success: function (result) {
+            console.log(result);
+        },
+    });
+}
+
+function getFormValuesFromDiv(divSelector) {
+    const values = {};
+
+    $(divSelector).find('input, select, textarea').each(function () {
+        const $element = $(this);
+        const name = $element.attr('name');
+
+        if (!name) return;
+
+        if ($element.is(':checkbox')) {
+            if (!$element.is(':checked')) return;
+            if (!values[name]) values[name] = [];
+            values[name].push($element.val());
+        } else if ($element.is(':radio')) {
+            if ($element.is(':checked')) {
+                values[name] = $element.val();
+            }
+        } else if ($element.is('select[multiple]')) {
+            values[name] = $element.val() || [];
+        } else {
+            values[name] = $element.val();
+        }
+    });
+
+    return values;
 }

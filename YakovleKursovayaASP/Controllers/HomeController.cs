@@ -28,6 +28,12 @@ namespace YakovleKursovayaASP.Controllers
             return View(result);
         }
 
+        public async Task<IActionResult> GetByFilters(Filters filters)
+        {
+            var result = await _productService.GetByFiltersAsync(filters);
+            return Ok(result);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

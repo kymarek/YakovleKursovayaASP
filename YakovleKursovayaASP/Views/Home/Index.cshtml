@@ -1,16 +1,51 @@
 ﻿@model List<Product>;
 
 <div class="container">
+    <div class="Filters row">
+        <div class="col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="name">Название:</label>
+            <input type="text" id="name" name="name" class="filterInput"/>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="weight">Вес:</label>
+            <input type="number" id="weight" name="weight" class="filterInput"/>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="Brand">Бренд:</label>
+            <input type="text" id="Brand" name="Brand" class="filterInput" />
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="thematics">Тематика:</label>
+            <input type="text" id="thematics" name="thematics" class="filterInput"/>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="genre">Жанр:</label>
+            <input type="text" id="genre" name="genre" class="filterInput"/>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="pages">Страницы:</label>
+            <input type="number" id="pages" name="pages" class="filterInput"/>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="bindingType">Тип переплёта:</label>
+            <input type="text" id="bindingType" name="bindingType" class="filterInput"/>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="series">Серия:</label>
+            <input type="text" id="series" name="series" class="filterInput"/>
+        </div>
+        <button class="theme-btn" style="max-width: 200px; margin-bottom: 10px;" onclick="GetByFilters()">Подтвердить</button>
+    </div>
     <div class="row">
         @foreach (Product item in Model)
         {
             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".4s">
                 <div class="shop-box-items">
                     <div class="book-thumb center">
-                        <a href="@Url.Action("Details", "Home", new { id = item.Id})"><img src="~/img/Books/@item.Photo" alt="img"></a>
+                        <a href="@Url.Action("Details", "Home", new { id = item.Id })"><img src="~/img/Books/@item.Photo" alt="img"></a>
                     </div>
                     <div class="shop-content">
-                        <h3><a href="@Url.Action("Details", "Home", new { id = item.Id})">@item.Name</a></h3>
+                        <h3><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Name</a></h3>
                         <ul class="price-list">
                             <li>Цена: @item.Price Р</li>
                         </ul>

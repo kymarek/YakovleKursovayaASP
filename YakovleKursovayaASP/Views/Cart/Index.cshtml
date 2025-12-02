@@ -38,7 +38,7 @@
                                     <span class="quantity-basket">
                                         <span class="qty">
                                             <button class="qtyminus" aria-hidden="true" onclick="reduceItem(@item.Product.Id)">−</button>
-                                            <input type="number" name="qty" id="qty2-@item.Product.Id" onchange="ChangeValue(@item.Product.Id)" min="1" max="10" step="1"
+                                            <input type="number" name="qty" id="qty2-@item.Product.Id" onchange="ChangeValue(@item.Product.Id)" step="1"
                                             value="@item.Count">
                                             <button class="qtyplus" aria-hidden="true" onclick="AddToCart(@item.Product.Id)">+</button>
                                         </span>
@@ -57,31 +57,32 @@
             <div class="table-responsive cart-total">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>Итог корзины</th>
-                        </tr>
+                    <tr>
+                        <th>Итог корзины</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <span class="d-flex gap-5 align-items-center justify-content-between">
-                                    <span class="sub-title">Сумма:</span>
-                                    <span class="sub-price">@Model.Summ Р</span>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="d-flex gap-5 align-items-center  justify-content-between">
-                                    <span class="sub-title">Позиций:</span>
-                                    <span class="sub-price sub-price-total">@Model.Count</span>
-                                </span>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <span class="d-flex gap-5 align-items-center justify-content-between">
+                                <span class="sub-title">Сумма:</span>
+                                <span class="sub-price">@Model.Summ Р</span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="d-flex gap-5 align-items-center  justify-content-between">
+                                <span class="sub-title">Позиций:</span>
+                                <span class="sub-price sub-price-total">@Model.Count</span>
+                            </span>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-                <button class="theme-btn" onlick="startOrder()">Оформить</button>
+                <button class="theme-btn" onclick="startOrder()">Оформить</button>
             </div>
+            <div id="orderForm"></div>
         </div>
     </div>
 </div>

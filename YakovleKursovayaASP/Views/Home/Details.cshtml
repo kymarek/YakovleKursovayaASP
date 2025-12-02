@@ -43,7 +43,7 @@
                                     <ul>
                             @foreach (var prop in props)
                             {
-                                @if (prop.Name == "Id")
+                                @if (prop.Name == "Id" || prop.Name == "Photo")
                                     continue;
                                 <li>
                                     @{

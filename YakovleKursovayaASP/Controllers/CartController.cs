@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using YakovleKursovayaASP.Models;
 using YakovleKursovayaASP.Services;
 
@@ -59,6 +57,11 @@ namespace YakovleKursovayaASP.Controllers
             HttpContext.Session.Set<Cart>("cart", cart);
 
             return PartialView("Index", cart);
+        }
+
+        public async Task<IActionResult> OrderForm()
+        {
+            return PartialView("OrderForm");
         }
 
         public async Task<IActionResult> RemoveItem(int id)

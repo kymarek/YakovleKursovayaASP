@@ -14,7 +14,7 @@ namespace YakovleKursovayaASP.Models
         public DbSet<ProductType> ProductTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite("DataSource=D:\\ASP.NET\\YakovleKursovayaASP\\kursach.db");
+        => options.UseSqlite("DataSource=kursach.db");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
