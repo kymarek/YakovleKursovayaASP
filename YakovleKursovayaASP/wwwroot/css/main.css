@@ -9445,4 +9445,8 @@ padding: 5px;
     .testimonial-slider .swiper-slide-active .testimonial-card-items .client-info .client-img .icon .shape {
         filter: invert(23%) sepia(96%) saturate(2210%) hue-rotate(170deg) brightness(95%) contrast(103%);
     }
+
+.col-lg-12 input{
+    color: black;
+}
 /*# sourceMappingURL=main.css.map */

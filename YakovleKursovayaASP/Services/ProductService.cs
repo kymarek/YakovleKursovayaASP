@@ -29,6 +29,8 @@ namespace YakovleKursovayaASP.Services
         FROM Products
         WHERE (IFNULL({filters.Brand}, '') = '' OR Brand LIKE '%' || {filters.Brand} || '%')
         AND (IFNULL({filters.Thematics}, '') = '' OR Thematics LIKE '%' || {filters.Thematics} || '%')
+        AND (IFNULL({filters.Name}, '') = '' OR Name LIKE '%' || {filters.Name} || '%')
+        AND (IFNULL({filters.Series}, '') = '' OR Series LIKE '%' || {filters.Series} || '%')
         AND (IFNULL({filters.Genre}, '') = '' OR Genre LIKE '%' || {filters.Genre} || '%')").ToListAsync();
         }
     }

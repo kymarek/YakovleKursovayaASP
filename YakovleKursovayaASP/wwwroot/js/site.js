@@ -92,11 +92,14 @@ function startOrder() {
     $('.qtyminus').hide();
     $('.qtyplus').hide();
     $('.qty').attr('disabled', 'disabled');
+    $('#qty2-2').attr('disabled', 'disabled');
+    
     $.ajax({
         url: 'Cart/OrderForm',
         method: "Get",
         success: function (result) {
             $('#orderForm').html(result);
+            $('#startOrdedBtn').hide();
         },
     });
 }
@@ -107,6 +110,7 @@ function cancelOrder() {
     $('.qtyplus').show();
     $('.qty').attr('disabled', 'false');
     $('#orderForm').html('');
+    $('#startOrdedBtn').show();
 }
 
 function GetByFilters() {
@@ -117,7 +121,7 @@ function GetByFilters() {
         method: "Get",
         data: values,
         success: function (result) {
-            console.log(result);
+            $('.pb-3').html(result);
         },
     });
 }
@@ -147,4 +151,11 @@ function getFormValuesFromDiv(divSelector) {
     });
 
     return values;
+}
+
+function freezOrder() {
+    $('.orderForm').find('input').each(function () {
+        const $element = $(this);
+        $element.attr('disabled', 'disabled');
+    });
 }

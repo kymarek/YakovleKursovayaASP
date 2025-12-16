@@ -38,7 +38,7 @@
                                     <span class="quantity-basket">
                                         <span class="qty">
                                             <button class="qtyminus" aria-hidden="true" onclick="reduceItem(@item.Product.Id)">−</button>
-                                            <input type="number" name="qty" id="qty2-@item.Product.Id" onchange="ChangeValue(@item.Product.Id)" step="1"
+                                            <input type="number" name="qty" id="qty2-@item.Product.Id" min="0" onchange="ChangeValue(@item.Product.Id)" step="1"
                                             value="@item.Count">
                                             <button class="qtyplus" aria-hidden="true" onclick="AddToCart(@item.Product.Id)">+</button>
                                         </span>
@@ -80,7 +80,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <button class="theme-btn" onclick="startOrder()">Оформить</button>
+                <button class="theme-btn" id="startOrdedBtn" onclick="startOrder()">Оформить</button>
             </div>
             <div id="orderForm"></div>
         </div>
