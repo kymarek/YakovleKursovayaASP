@@ -29,7 +29,7 @@ namespace YakovleKursovayaASP.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Class")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("GameTime")
                         .HasColumnType("TEXT");

@@ -58,7 +58,7 @@ public partial class Product
     public string? Subject { get; set; }
 
     [Display(Name = "Класс")]
-    public string? Class { get; set; }
+    public int? Class { get; set; }
 
     [Display(Name = "Тип обучения")]
     public string? StudingType { get; set; }

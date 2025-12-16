@@ -5,7 +5,14 @@
 
 $('document').ready(function () {
     GetCartLength();
-})
+    GetBrands();
+    GetGenre();
+    GetGameType();
+    GetSubject();
+    GetStudingType();
+    GetProductTypes();
+});
+
 function AddToCart(id) {
     $.ajax({
         url: 'Cart/AddToCart',
@@ -115,13 +122,110 @@ function cancelOrder() {
 
 function GetByFilters() {
     var values = getFormValuesFromDiv($('.Filters')[0]);
-    console.log(values);
     $.ajax({
         url: 'Home/GetByFilters',
         method: "Get",
         data: values,
         success: function (result) {
-            $('.pb-3').html(result);
+            console.log(result);
+            $.ajax({
+                url: 'Home/GetFilteredProducts',
+                method: "POST",
+                data: { filteredProductsString: JSON.stringify(result.filteredProducts) },
+                success: function (result) {
+                    $('#products').html(result);
+                }
+            });
+            console.log(result.fieldsWithNonNullValues.length);
+            if (result.fieldsWithNonNullValues.length > 0) {
+                $('#filterHolder').find('div[data-filter]').css('display', 'none');
+                // Перебираем массив и скрываем каждый элемент
+                $.each(result.fieldsWithNonNullValues, function (index, filterValue) {
+                    $(`[data-filter="${filterValue}"]`).css('display', 'block');
+                });
+            }
+        }
+    });
+}
+
+function GetBrands() {
+    $.ajax({
+        url: 'Home/GetBrands',
+        method: "Get",
+        success: function (result) {
+            $('#Brand').html(result);
+            $('#Brand').css('display', 'inline');
+            $('#Brand').next('div').remove();
+        },
+    });
+}
+
+function GetGenre() {
+    $.ajax({
+        url: 'Home/GetGenre',
+        method: "Get",
+        success: function (result) {
+            $('#Genre').html(result);
+            $('#Genre').css('display', 'inline');
+            $('#BindingType').css('display', 'inline');
+            $('#BindingType').next('div').remove();
+            $('#Genre').next('div').remove();
+            $('#Sort').css('display', 'inline');
+            $('#Sort').next('div').remove();
+            $('#SortWay').css('display', 'inline');
+            $('#SortWay').next('div').remove();
+        },
+    });
+}
+
+function GetGameType() {
+    $.ajax({
+        url: 'Home/GetGameType',
+        method: "Get",
+        success: function (result) {
+            $('#GameType').html(result);
+            $('#GameType').css('display', 'inline');
+            $('#GameType').next('div').remove();
+
+        },
+    });
+}
+
+function GetSubject() {
+    $.ajax({
+        url: 'Home/GetSubject',
+        method: "Get",
+        success: function (result) {
+            $('#Subject').html(result);
+            $('#Subject').css('display', 'inline');
+            $('#Subject').next('div').remove();
+
+        },
+    });
+}
+
+function GetStudingType() {
+    $.ajax({
+        url: 'Home/GetStudingType',
+        method: "Get",
+        success: function (result) {
+            $('#StudingType').html(result);
+            $('#StudingType').css('display', 'inline');
+            $('#StudingType').next('div').remove();
+
+        },
+    });
+}
+
+function GetProductTypes() {
+    $.ajax({
+        url: 'Home/GetProductTypes',
+        method: "Get",
+        success: function (result) {
+            $('#ProductTypes').html(result);
+            $('#ProductTypes').css('display', 'inline');
+            $('#ProductTypes').next('div').remove();
+
         },
     });
 }
@@ -154,8 +258,43 @@ function getFormValuesFromDiv(divSelector) {
 }
 
 function freezOrder() {
-    $('.orderForm').find('input').each(function () {
-        const $element = $(this);
-        $element.attr('disabled', 'disabled');
-    });
+    if ($('#FormOrder')[0].reportValidity()) {
+        $('.orderForm').find('input, textarea').each(function () {
+            const $element = $(this);
+            $element.attr('disabled', 'disabled');
+        });
+        $('.orderForm').find('button').each(function () {
+            const $element = $(this);
+            $element.css('display', 'none');
+        });
+    }
 }
+
+$("#Name").off("input").on("input", GetByFilters);
+$("#Thematics").off("input").on("input", GetByFilters);
+$("#Series").off("input").on("input", GetByFilters);
+$("#WeightFrom").off("input").on("input", GetByFilters);
+$("#WeightTo").off("input").on("input", GetByFilters);
+$("#PagesFrom").off("input").on("input", GetByFilters);
+$("#PagesTo").off("input").on("input", GetByFilters);
+$("#PriceTo").off("input").on("input", GetByFilters);
+$("#PriceFrom").off("input").on("input", GetByFilters);
+$("#Brand").off("change").on("change", GetByFilters);
+$("#Genre").off("change").on("change", GetByFilters);
+$("#BindingType").off("change").on("change", GetByFilters);
+$("#ProductTypes").off("change").on("change", GetByFilters); 
+$("#GameType").off("change").on("change", GetByFilters);
+$("#Subject").off("change").on("change", GetByFilters);
+$("#Sort").off("change").on("change", GetByFilters);
+$("#SortWay").off("change").on("change", GetByFilters);
+$("#StudingType").off("change").on("change", GetByFilters);
+$("#PlayersFrom").off("input").on("input", GetByFilters);
+$("#PlayersTo").off("input").on("input", GetByFilters);
+$("#ClassFrom").off("input").on("input", GetByFilters);
+$("#ClassTo").off("input").on("input", GetByFilters);
+
+$('#WeightFrom, #WeightTo, #PagesFrom, #PagesTo, #PlayersTo, #PlayersFrom, #ClassFrom, #ClassTo').on('keydown', function (e) {
+    if (e.key === '.' || e.key === ',' || e.key.toLowerCase() === 'e') {
+        e.preventDefault();
+    }
+});

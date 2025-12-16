@@ -21,6 +21,56 @@ namespace YakovleKursovayaASP.Services
             return await _context.Products.ToListAsync();
         }
 
+        public async Task<List<string>> GetBrands()
+        {
+            return await _context.Products
+                .Where(p => p.Brand != null)
+                .Select(p => p.Brand)
+                .Distinct()
+                .ToListAsync(); ;
+        }
+
+        public async Task<List<string>> GetGenre()
+        {
+            return await _context.Products
+                .Where(p => p.Genre != null)
+                .Select(p => p.Genre)
+                .Distinct()
+                .ToListAsync(); ;
+        }
+
+        public async Task<List<string>> GetGameType()
+        {
+            return await _context.Products
+                .Where(p => p.GameType != null)
+                .Select(p => p.GameType)
+                .Distinct()
+                .ToListAsync(); ;
+        }
+
+        public async Task<List<string>> GetSubject()
+        {
+            return await _context.Products
+                .Where(p => p.Subject != null)
+                .Select(p => p.Subject)
+                .Distinct()
+                .ToListAsync(); ;
+        }
+        
+        public async Task<List<string>> GetStudingType()
+        {
+            return await _context.Products
+                .Where(p => p.StudingType != null)
+                .Select(p => p.StudingType)
+                .Distinct()
+                .ToListAsync(); ;
+        }
+
+        public async Task<List<ProductType>> GetProductTypes()
+        {
+            return await _context.ProductTypes.ToListAsync();
+        }
+
         public async Task<List<Product>> GetByFiltersAsync(Filters filters)
         {
             return await _context.Products

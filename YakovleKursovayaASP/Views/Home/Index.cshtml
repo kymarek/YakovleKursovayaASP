@@ -1,42 +1,113 @@
 ﻿@model List<Product>;
 
 <div class="container">
-    <div class="Filters row">
-        <div class="col-xl-3 col-lg-4 filterDiv">
+    <div class="Filters row" id="filterHolder">
+        <div class="col-xl-3 col-lg-4 filterDiv" data-filter="Name">
             <label class="label" for="Name">Название:</label>
             <input type="text" id="Name" name="Name" class="filterInput" />
         </div>
-        @* <div class=" col-xl-3 col-lg-4 filterDiv">
-            <label class="label" for="weight">Вес:</label>
-            <input type="number" id="weight" name="weight" class="filterInput"/>
-        </div> *@
-        <div class=" col-xl-3 col-lg-4 filterDiv">
-            <label class="label" for="Brand">Бренд:</label>
-            <input type="text" id="Brand" name="Brand" class="filterInput" />
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="ProductType">
+            <label class="label" for="ProductTypes">Тип продукта:</label>
+            <select type="text" id="ProductTypes" name="ProductTypes" class="filterInput"> </select>
         </div>
-        <div class=" col-xl-3 col-lg-4 filterDiv">
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Brand">
+            <label class="label" for="Brand">Бренд:</label>
+            <select type="text" id="Brand" name="Brand" class="filterInput">
+            </select>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Thematics">
             <label class="label" for="Thematics">Тематика:</label>
             <input type="text" id="Thematics" name="Thematics" class="filterInput" />
         </div>
-        <div class=" col-xl-3 col-lg-4 filterDiv">
-            <label class="label" for="Genre">Жанр:</label>
-            <input type="text" id="Genre" name="Genre" class="filterInput" />
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Weight">
+            <label class="label" for="WeightFrom">Вес от:</label>
+            <input type="number" id="WeightFrom" name="WeightFrom" class="filterInput" step="1" min="0"/>
+            <div></div>
+            <label class="label" for="WeightTo">Вес до:</label>
+            <input type="number" id="WeightTo" name="WeightTo" class="filterInput" step="1" min="0"/>
         </div>
-        @* <div class=" col-xl-3 col-lg-4 filterDiv">
-            <label class="label" for="pages">Страницы:</label>
-            <input type="number" id="pages" name="pages" class="filterInput"/>
-        </div> *@
-        @* <div class=" col-xl-3 col-lg-4 filterDiv">
-            <label class="label" for="bindingType">Тип переплёта:</label>
-            <input type="text" id="bindingType" name="bindingType" class="filterInput"/>
-        </div> *@
-        <div class=" col-xl-3 col-lg-4 filterDiv">
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Pages">
+            <label class="label" for="PagesFrom">Страницы от:</label>
+            <input type="number" id="PagesFrom" name="PagesFrom" class="filterInput" step="1" min="0" />
+            <div></div>
+            <label class="label" for="PagesTo">Страницы до:</label>
+            <input type="number" id="PagesTo" name="PagesTo" class="filterInput" step="1" min="0" />
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Genre">
+            <label class="label" for="Genre">Жанр:</label>
+            <select type="text" id="Genre" name="Genre" class="filterInput"> </select>
+        </div>
+        
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="GameType">
+            <label class="label" for="GameType">Тип игры:</label>
+            <select type="text" id="GameType" name="GameType" class="filterInput"> </select>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="BindingType">
+            <label class="label" for="BindingType">Тип переплёта:</label>
+            <select type="text" id="BindingType" name="BindingType" class="filterInput">
+                <option value="">-</option>
+                <option value="Твёрдый переплёт">Твёрдый переплёт</option>
+                <option value="Мягкий переплёт">Мягкий переплёт</option>
+            </select>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Price">
+            <label class="label" for="PriceFrom">Цена от:</label>
+            <input type="number" id="PriceFrom" name="PriceFrom" class="filterInput" min="0" />
+            <div></div>
+            <label class="label" for="PriceTo">Цена до:</label>
+            <input type="number" id="PriceTo" name="PriceTo" class="filterInput" min="0" />
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="PlayersCount">
+            <label class="label" for="PlayersFrom">Игроков от:</label>
+            <input type="number" id="PlayersFrom" name="PlayersFrom" class="filterInput" step="1" min="0" />
+            <div></div>
+            <label class="label" for="PlayersTo">Игроков до:</label>
+            <input type="number" id="PlayersTo" name="PlayersTo" class="filterInput" step="1" min="0" />
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Subject">
+            <label class="label" for="Subject">Предмет:</label>
+            <select type="text" id="Subject" name="Subject" class="filterInput"> </select>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="StudingType">
+            <label class="label" for="StudingType">Тип обучения:</label>
+            <select type="text" id="StudingType" name="StudingType" class="filterInput"> </select>
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Series">
             <label class="label" for="Series">Серия:</label>
             <input type="text" id="Series" name="Series" class="filterInput" />
         </div>
-        <button class="theme-btn" style="max-width: 200px; margin-bottom: 10px;" onclick="GetByFilters()">Подтвердить</button>
+        <div class=" col-xl-3 col-lg-4 filterDiv" data-filter="Class">
+            <label class="label" for="ClassFrom">Класс от:</label>
+            <input type="number" id="ClassFrom" name="ClassFrom" class="filterInput" step="1" min="0" />
+            <div></div>
+            <label class="label" for="ClassTo">Класс до:</label>
+            <input type="number" id="ClassTo" name="ClassTo" class="filterInput" step="1" min="0" />
+        </div>
+        <div class=" col-xl-3 col-lg-4 filterDiv">
+            <label class="label" for="Sort">Сортировка:</label>
+            <select type="text" id="Sort" name="Sort" class="filterInput">
+                <option value="">-</option>
+                <option value="Name">Имя</option>
+                <option value="Brand">Бренд</option>
+                <option value="Thematics">Тематика</option>
+                <option value="Weight">Вес</option>
+                <option value="Pages">Страницы</option>
+                <option value="Genre">Жанр</option>
+                <option value="GameType">Тип игры</option>
+                <option value="Price">Цена</option>
+                <option value="PlayersCount">Количество игроков</option>
+                <option value="Series">Серия</option>
+                <option value="Class">Класс</option>
+            </select>
+            <select type="text" id="SortWay" name="SortWay" class="filterInput">
+                <option value="true">По убыванию</option>
+                <option value="false">По возрастанию</option>
+            </select>
+        </div>
+
+        @* <button class="theme-btn" style="max-width: 200px; margin-bottom: 10px;" onclick="GetByFilters()">Подтвердить</button> *@
     </div>
-    <div class="row">
+    <div class="row" id="products">
         @foreach (Product item in Model)
         {
             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".4s">

@@ -32,7 +32,7 @@ namespace YakovleKursovayaASP.Migrations
                     GameType = table.Column<string>(type: "TEXT", nullable: true),
                     PlayersCount = table.Column<int>(type: "INTEGER", nullable: true),
                     Subject = table.Column<string>(type: "TEXT", nullable: true),
-                    Class = table.Column<string>(type: "TEXT", nullable: true),
+                    Class = table.Column<string>(type: "INTEGER", nullable: true),
                     StudingType = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

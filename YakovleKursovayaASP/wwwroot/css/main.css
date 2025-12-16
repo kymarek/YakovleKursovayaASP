@@ -194,10 +194,6 @@ input:focus {
     outline: none;
 }
 
-input {
-    color: var(--white);
-}
-
 h1,
 h2,
 h3,
@@ -208,12 +204,12 @@ h6 {
     margin: 0px;
     padding: 0;
     color: var(--header);
-    text-transform: capitalize;
+    /*text-transform: capitalize;
     transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;*/
 }
 
 h1 {
@@ -274,11 +270,11 @@ a {
     outline: none !important;
     cursor: pointer;
     color: var(--header);
-    transition: all 0.4s ease-in-out;
+    /*transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;*/
 }
 
     a:hover {
@@ -287,20 +283,20 @@ a {
 
 p {
     margin: 0px;
-    transition: all 0.4s ease-in-out;
+    /*transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;*/
 }
 
 span {
     margin: 0px;
-    transition: all 0.4s ease-in-out;
+    /*transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;*/
 }
 
 .about-wrapper .about-image {
@@ -368,18 +364,18 @@ span {
     .about-wrapper .about-content .link-btn i {
         transform: rotate(-40deg);
         margin-left: 10px;
-        transition: all 0.4s ease-in-out;
+        /*transition: all 0.4s ease-in-out;
         -webkit-transition: all 0.4s ease-in-out;
         -moz-transition: all 0.4s ease-in-out;
         -ms-transition: all 0.4s ease-in-out;
-        -o-transition: all 0.4s ease-in-out;
+        -o-transition: all 0.4s ease-in-out;*/
     }
 
     .about-wrapper .about-content .link-btn:hover i {
         transform: rotate(0);
     }
 
-@-webkit-keyframes rippleOne {
+/*@-webkit-keyframes rippleOne {
     70% {
         -webkit-box-shadow: 0 0 0 40px rgba(244, 68, 56, 0);
         box-shadow: 0 0 0 40px rgba(244, 68, 56, 0);
@@ -536,14 +532,14 @@ span {
 @keyframes cir36 {
     100% {
         transform: rotate(360deg);
-    }
+    }*/
 }
 
 .float-bob-y {
     -webkit-animation-name: float-bob-y;
     animation-name: float-bob-y;
-    -webkit-animation-duration: 3s;
-    animation-duration: 3s;
+   /* -webkit-animation-duration: 3s;
+    animation-duration: 3s;*/
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
@@ -587,8 +583,8 @@ span {
 .float-bob-x {
     -webkit-animation-name: float-bob-x;
     animation-name: float-bob-x;
-    -webkit-animation-duration: 3s;
-    animation-duration: 3s;
+   /* -webkit-animation-duration: 3s;
+    animation-duration: 3s;*/
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
@@ -2208,11 +2204,11 @@ padding: 5px;
     text-align: left;
     position: relative;
     text-transform: capitalize;
-    transition: all 0.4s ease-in-out;
+/*    transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;*/
 }
 
     .header-main .main-menu ul li a i {
@@ -4081,11 +4077,11 @@ padding: 5px;
     line-height: 1;
     font-weight: 400;
     justify-content: space-between;
-    transition: all 0.3s ease-in-out;
+/*    transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;*/
 }
 
 .category-item ul li:hover {
