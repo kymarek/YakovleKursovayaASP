@@ -36,7 +36,7 @@
                                 </td>
                                 <td>
                                     <span class="quantity-basket">
-                                        <span class="qty">
+                                        <span class="qty" id="qtyHolder">
                                             <button class="qtyminus" aria-hidden="true" onclick="reduceItem(@item.Product.Id)">−</button>
                                             <input type="number" name="qty" id="qty2-@item.Product.Id" min="0" onchange="ChangeValue(@item.Product.Id)" step="1"
                                             value="@item.Count">

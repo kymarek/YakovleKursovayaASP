@@ -88,6 +88,22 @@ namespace YakovleKursovayaASP.Controllers
             return PartialView("Index", cart);
         }
 
+        public async Task<IActionResult> ClearCart()
+        {
+
+            var cart = new Cart();
+            if (HttpContext.Session.Keys.Contains("cart"))
+                cart = HttpContext.Session.Get<Cart>("cart");
+
+            cart.Items.Clear();
+            cart.Count = 0;
+            cart.Summ = 0;
+
+            HttpContext.Session.Set<Cart>("cart", cart);
+
+            return PartialView("Index", cart);
+        }
+
         public async Task<IActionResult> GetCartLength()
         {
             int? result = 0;

@@ -21,4 +21,8 @@
     <PackageReference Include="System.Data.SQLite.Core.ICU" Version="1.0.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <SQLiteInteropFiles Remove="Controllers\AccountController.cs" />
+  </ItemGroup>
+
 </Project>

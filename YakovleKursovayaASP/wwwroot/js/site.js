@@ -99,7 +99,11 @@ function startOrder() {
     $('.qtyminus').hide();
     $('.qtyplus').hide();
     $('.qty').attr('disabled', 'disabled');
-    $('#qty2-2').attr('disabled', 'disabled');
+    $('#qty2').attr('disabled', 'disabled');
+    $('#qtyHolder').find('input').each(function () {
+        const $element = $(this);
+        $element.prop('disabled', true);
+    });
     
     $.ajax({
         url: 'Cart/OrderForm',
@@ -267,6 +271,14 @@ function freezOrder() {
             const $element = $(this);
             $element.css('display', 'none');
         });
+
+        $.ajax({
+            url: 'Cart/ClearCart',
+            method: "Get",
+            success: function (result) {
+               
+            },
+        });
     }
 }
 
@@ -294,7 +306,13 @@ $("#ClassFrom").off("input").on("input", GetByFilters);
 $("#ClassTo").off("input").on("input", GetByFilters);
 
 $('#WeightFrom, #WeightTo, #PagesFrom, #PagesTo, #PlayersTo, #PlayersFrom, #ClassFrom, #ClassTo').on('keydown', function (e) {
-    if (e.key === '.' || e.key === ',' || e.key.toLowerCase() === 'e') {
+    if (e.key === '.' || e.key === ',' || e.key.toLowerCase() === 'e', e.key === '-') {
+        e.preventDefault();
+    }
+});
+
+$('.qty').on("keydown", "input", function (e) {
+    if (e.key === '.' || e.key === ',' || e.key === '-') {
         e.preventDefault();
     }
 });
