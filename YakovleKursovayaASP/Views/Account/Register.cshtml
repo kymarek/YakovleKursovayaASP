@@ -1,0 +1,65 @@
+﻿@model User 
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Регистрация пользователя</h4>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("ConfirmRegistration", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="Login" class="form-label">Логин</label>
+                        @Html.TextBoxFor(m => m.Login, new { @class = "form-control", placeholder = "Введите логин", required = "required" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Password" class="form-control-label">Пароль</label>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "********", required = "required" })
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="col-md-4">
+                        <label for="Surname" class="form-label">Фамилия</label>
+                        @Html.TextBoxFor(m => m.Surname, new { @class = "form-control", placeholder = "Иванов", required = "required" })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="Name" class="form-label">Имя</label>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Иван", required = "required" })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="Patronymic" class="form-label">Отчество</label>
+                        @Html.TextBoxFor(m => m.Patronymic, new { @class = "form-control", placeholder = "Иванович", required = "required" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="City" class="form-label">Город</label>
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "Москва", required = "required" })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="Phone" class="form-label">Телефон</label>
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", type = "tel", placeholder = "+7 (___) ___-__-__", required = "required" })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="Mail" class="form-label">Электронная почта</label>
+                        @Html.TextBoxFor(m => m.Mail, new { @class = "form-control", type = "email", placeholder = "example@mail.com", required = "required" })
+                    </div>
+                </div>
+
+                <div class="mt-5 d-flex justify-content-end gap-2">
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary px-4">
+                        Отмена
+                    </a>
+                    <button type="submit" class="btn btn-success px-5">
+                        Подтвердить
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

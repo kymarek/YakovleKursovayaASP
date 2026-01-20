@@ -12,6 +12,7 @@ namespace YakovleKursovayaASP.Models
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite("DataSource=kursach.db");

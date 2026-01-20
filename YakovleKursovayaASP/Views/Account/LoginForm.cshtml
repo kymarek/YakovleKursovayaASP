@@ -1,0 +1,54 @@
+﻿@model LoginModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow border-0">
+                <div class="card-header text-white text-center py-3">
+                    <h5 class="mb-0">Авторизация</h5>
+                </div>
+                <div class="card-body p-4">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger py-2 small">
+                                @Html.ValidationSummary(true, "")
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label for="Login" class="form-label">Логин</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", placeholder = "Введите логин", required = "required" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Login, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="Password" class="form-label">Пароль</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "********", required = "required" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Войти</button>
+                            <a href="@Url.Action("Register", "Account")" class="btn btn-link btn-sm text-decoration-none">
+                                Нет аккаунта? Зарегистрироваться
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="/" class="text-muted small text-decoration-none">← На главную</a>
+            </div>
+        </div>
+    </div>
+</div>

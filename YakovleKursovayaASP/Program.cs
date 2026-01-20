@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System;
 using YakovleKursovayaASP.Models;
@@ -9,15 +10,22 @@ builder.Services.AddDbContext<KursachAspContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<UserService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDistributedMemoryCache();// добавляем IDistributedMemoryCache
-builder.Services.AddSession();  // добавляем сервисы сессии
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();  
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login"; 
+        options.LogoutPath = "/Account/Logout";
+    });
 
 var app = builder.Build();
-
 
 app.UseSession();   // добавляем middleware для работы с сессиями
 
@@ -41,7 +49,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); 
+app.UseAuthorization();  
 
 app.MapControllerRoute(
     name: "default",
